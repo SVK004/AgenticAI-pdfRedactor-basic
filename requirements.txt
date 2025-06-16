@@ -1,0 +1,11 @@
+fastapi
+uvicorn
+pymupdf
+crewai
+langchain
+langchain-community
+ollama
+python-dotenv
+python-multipart
+azure-ai-inference
+litellm

@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>PDF Upload</title>
+</head>
+<body>
+  <h2>Upload PDF</h2>
+  <form id="pdfForm">
+    <input type="file" id="pdfFile" name="file" accept="application/pdf" />
+    <button type="submit">Upload</button>
+  </form>
+  <a id="downloadLink" href="#" style="display:none;">Download Redacted PDF</a>
+
+  <script>
+    document.getElementById('pdfForm').addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const fileInput = document.getElementById('pdfFile');
+      const formData = new FormData();
+      formData.append('file', fileInput.files[0]);
+
+      try {
+        const res = await fetch('http://localhost:8000/', {
+          method: 'POST',
+          body: formData
+        });
+
+        // Since backend sends a FileResponse (not JSON), directly handle the blob
+        const blob = await res.blob();
+        const downloadUrl = window.URL.createObjectURL(blob);
+        
+        const link = document.getElementById('downloadLink');
+        link.href = downloadUrl;
+        link.style.display = 'block';
+        link.download = 'redacted.pdf';
+        link.innerText = 'Download Redacted PDF';
+      } catch (err) {
+        console.error("Upload failed:", err);
+      }
+    });
+  </script>
+</body>
+</html>
