@@ -50,7 +50,16 @@ Sensitive info includes:
 
     crew = Crew(agents=[redaction_agent], tasks=[task])
     result = crew.kickoff()
-    return result
+
+    # 🧼 Post-process to remove assistant chatter and extract clean output
+    raw_output = str(result)
+    if "### REDACTED OUTPUT:" in raw_output:
+        redacted_text = raw_output.split("### REDACTED OUTPUT:")[-1].strip()
+        redacted_text = redacted_text.split("Output:")[0].split("Assistant:")[0].strip()
+    else:
+        redacted_text = raw_output.strip()
+
+    return redacted_text
 
 
 

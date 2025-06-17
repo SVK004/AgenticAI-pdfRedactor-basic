@@ -1,10 +1,26 @@
 # Python
 venv/
-__pycache__/
+.backend/__pycache__/
 *.pyc
-.env
+.backend/env
 
-# React
-frontend/node_modules/
-frontend/.env
-frontend/build/
+# ⚡ Vite/Bolt build
+.project/dist/
+.project/vite/
+.project/cache/
+
+# 💡 Env files
+.project/env
+.project/env.*
+
+# 🔄 Log files
+.project/npm-debug.log*
+.project/yarn-debug.log*
+.project/yarn-error.log*
+
+# 📁 Editor-specific files
+.project/DS_Store
+.project/vscode/
+.project/idea/
+*.swp
+*.swo
